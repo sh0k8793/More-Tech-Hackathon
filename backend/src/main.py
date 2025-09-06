@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.v1.router import v1
 from core.pool import pool
