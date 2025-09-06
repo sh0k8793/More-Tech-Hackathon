@@ -18,8 +18,8 @@ jobs:
       - name: Run linters
         working-directory: ./backend
         run: |
-          uv run python -m ruff check src
-          uv run python -m ty check src
-          uv run python -m bandit check src -r
-          uv run python -m typos check
-          uv run python -m isort --check-only src
+          uv run ruff check src
+          uv run ty check src
+          uv run bandit check src -r
+          uv run typos check
+          uv run isort --check-only src
