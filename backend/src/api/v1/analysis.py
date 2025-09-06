@@ -1,7 +1,7 @@
 from typing import List
 
-from core.pool import get_conn
 from fastapi import APIRouter, Depends
+from src.core.pool import get_conn
 
 analysis = APIRouter(prefix="/analysis")
 

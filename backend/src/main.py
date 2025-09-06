@@ -1,10 +1,10 @@
 import logging
 from contextlib import asynccontextmanager
 
-from api.v1.router import v1
-from core.pool import pool
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from src.api.v1.router import v1
+from src.core.pool import pool
 
 stats_cache = None
 # logging
