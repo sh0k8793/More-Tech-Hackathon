@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.core.models.lint_diagnose import LintDiagnose
+from core.models.lint_diagnose import LintDiagnose
 
 
 # TODO: Initialize sql analyzer to combine explain, ast_rules, custom_rules,

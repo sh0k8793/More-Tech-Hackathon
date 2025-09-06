@@ -1,8 +1,8 @@
 from pydantic import BaseModel
-from src.core.models.lint_result import LintResult
-from src.core.models.recommendation import Recommendation
+from core.models.lint_diagnose import LintDiagnose
+from core.models.recommendation import Recommendation
 
 
 class AnalysisResult(BaseModel):
-    lint_result: LintResult # All lint errors
+    lint_result: list[LintDiagnose] # All lint errors
     recommendations: list[Recommendation] # Only errors with available fixes

@@ -3,8 +3,9 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.api.v1.router import v1
-from src.core.pool import pool
+from api.v1.router import v1
+from core.pool import pool
+
 
 stats_cache = None
 # logging
@@ -27,7 +28,7 @@ async def lifespan(app: FastAPI):
     logger.info("Pool opened")
 
     yield
-    print("Application shutdown initiated.")
+    logger.info("Application shutdown initiated.")
     logger.info("Application shutting down...")
     try:
         logger.info("Gracefully stopping...")

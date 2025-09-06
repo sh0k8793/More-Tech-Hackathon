@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from src.api.v1.analysis import analysis
+from api.v1.analysis import analysis
 
 v1 = APIRouter(prefix="/v1")
 
