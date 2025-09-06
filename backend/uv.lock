@@ -28,7 +28,7 @@ wheels = [
 [[package]]
 name = "backend"
 version = "0.1.0"
-source = { editable = "." }
+source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "psycopg" },
@@ -40,20 +40,17 @@ dependencies = [
 [package.optional-dependencies]
 dev = [
     { name = "bandit" },
+    { name = "isort" },
     { name = "ruff" },
     { name = "ty" },
     { name = "typos" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "isort" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "bandit", marker = "extra == 'dev'", specifier = ">=1.8.6" },
     { name = "fastapi", specifier = ">=0.116.1" },
+    { name = "isort", marker = "extra == 'dev'", specifier = ">=6.0.1" },
     { name = "psycopg", specifier = ">=3.2.9" },
     { name = "psycopg-pool", specifier = ">=3.2.6" },
     { name = "pydantic", specifier = ">=2.11.7" },
@@ -63,9 +60,6 @@ requires-dist = [
     { name = "uvicorn", specifier = ">=0.35.0" },
 ]
 provides-extras = ["dev"]
-
-[package.metadata.requires-dev]
-dev = [{ name = "isort", specifier = ">=6.0.1" }]
 
 [[package]]
 name = "bandit"
