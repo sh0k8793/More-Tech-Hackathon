@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import APIRouter, Depends
 from core.pool import get_conn
 from core.models.lint_request import LintRequest, LintRequests
