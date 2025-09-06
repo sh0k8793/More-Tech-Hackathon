@@ -20,12 +20,16 @@ jobs:
             python -m pip install --upgrade pip
             pip install -e ".[dev]"
       - name: Run Ruff
-        run: ruff check backend/src
+        run: python -m ruff check backend/src
       - name: Run Ty
-        run: ty check backend/src
+        working-directory: ./backend
+        run: python -m ty check src
       - name: Run Bandit
-        run: bandit check backend/src -r
+        working-directory: ./backend
+        run: python -m bandit check backend/src -r
       - name: Run typos
-        run: typos check
+        working-directory: ./backend
+        run: python -m typos check
       - name: Run isort
-        run: isort --check-only backend/src
+        working-directory: ./backend
+        run: python -m isort --check-only backend/src
