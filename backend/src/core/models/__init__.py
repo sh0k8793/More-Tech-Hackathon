@@ -1,6 +1,6 @@
 from backend.src.core.models.lint_diagnose import LintDiagnose
-from backend.src.core.models.lint_request import LintRequest
-from backend.src.core.models.lint_result import LintResult
+from src.core.models.lint_request import LintRequest
+from src.core.models.lint_result import LintResult
 
 __all__ = [
     LintResult,
