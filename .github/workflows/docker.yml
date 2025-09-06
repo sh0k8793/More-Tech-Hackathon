@@ -19,7 +19,7 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: backend/
           push: false
           tags: backend-api:latest
           cache-from: type=gha
