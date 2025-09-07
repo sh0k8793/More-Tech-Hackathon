@@ -1,6 +1,15 @@
-# FIXME: move this to .env, add .env to .gitignore
+from pydantic_settings import BaseSettings
 
-DB_NAME="db"
-DB_USERNAME="admin"
-DB_PASSWORD="12345" # nosec
-DB_HOSTNAME="postgres"
+
+class Settings(BaseSettings):
+    """Application settings loaded from environment variables."""
+    DB_NAME: str
+    DB_USERNAME: str
+    DB_PASSWORD: str
+    DB_HOSTNAME: str = "postgres"
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+
+settings = Settings() #ty: ignore
