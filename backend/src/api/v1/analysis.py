@@ -1,7 +1,6 @@
-from fastapi import APIRouter, Depends
-from core.pool import get_conn
 from core.models.lint_request import LintRequest, LintRequests
-
+from core.pool import get_conn
+from fastapi import APIRouter, Depends
 
 analysis = APIRouter(prefix="/analysis")
 

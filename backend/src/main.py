@@ -1,20 +1,12 @@
-import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from api.v1.router import v1
 from core.pool import pool
-
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from utils.logger import logger
 
 stats_cache = None
-# logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(levelname)s: %(asctime)s - %(message)s",
-    force=True
-)
-logger = logging.getLogger(__name__)
 
 
 
