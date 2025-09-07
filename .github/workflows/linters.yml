@@ -1,0 +1,25 @@
+name: Linters
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        working-directory: ./backend
+        run: uv sync --all-extras
+      - name: Run linters
+        working-directory: ./backend
+        run: |
+          uv run ruff check src
+          uv run ty check src
+          uv run bandit check src -r
+          uv run typos
+          uv run isort --check-only src

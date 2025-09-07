@@ -1,34 +1,26 @@
-from fastapi import FastAPI, APIRouter, Request
-from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+
 from api.v1.router import v1
 from core.pool import pool
-import logging
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from utils.logger import logger
+
+stats_cache = None
 
 
-# logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(levelname)s: %(asctime)s - %(message)s",
-    force=True
-)
-logger = logging.getLogger(__name__)
 
-
-app = FastAPI()
-
-
-# opening pools
-@app.on_event("startup")
-async def startup_event():
+# TODO: Refactor: move lifespan manager to lifespan.py
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     logger.info("Application starting up...")
     global stats_cache
     await pool.open()
     await pool.wait()
     logger.info("Pool opened")
-    
 
-@app.on_event("shutdown")
-async def shutdown_event():
+    yield
+    logger.info("Application shutdown initiated.")
     logger.info("Application shutting down...")
     try:
         logger.info("Gracefully stopping...")
@@ -38,11 +30,13 @@ async def shutdown_event():
         logger.error(f"{e}")
 
 
+app = FastAPI(lifespan=lifespan)
+
 # including routers
 app.include_router(v1)
 
 
-# убрать при деплое 
+# убрать при деплое
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
