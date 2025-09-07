@@ -1,9 +1,9 @@
-from core.settings import DB_HOSTNAME, DB_NAME, DB_PASSWORD, DB_USERNAME
+from core.settings import settings
 from psycopg_pool import AsyncConnectionPool
 from utils.logger import logger
 
 pool = AsyncConnectionPool(
-    f"host={DB_HOSTNAME} dbname={DB_NAME} user={DB_USERNAME} password={DB_PASSWORD}",
+    f"host={settings.DB_HOSTNAME} dbname={settings.DB_NAME} user={settings.DB_USERNAME} password={settings.DB_PASSWORD}",
     open=False,
     min_size=1
 )
