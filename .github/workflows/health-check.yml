@@ -36,14 +36,14 @@ jobs:
           echo "Waiting for FastAPI to become healthy..."
           for i in {1..100}; do
             if docker compose -f docker-compose.dev.yml ps api | grep "Up" && \
-               docker compose -f docker-compose.dev.yml exec api curl -f http://localhost:8000/v1/health/ > /dev/null 2>&1; then
+               docker compose -f docker-compose.dev.yml exec api curl -f http://localhost:8000/v1/health/; then
               echo "✅ API is responding"
               break
             fi
-            echo "⏳ Waiting for API... ($i/30)"
+            echo "⏳ Waiting for API... ($i/100)"
             sleep 5
           done
-          if [ $i -eq 30 ]; then
+          if [ $i -eq 100 ]; then
             echo "❌ API failed to start or respond within 150 seconds"
             docker compose -f docker-compose.dev.yml logs api
             exit 1
