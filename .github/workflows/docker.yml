@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: CI - Build & Health Check
 
 on:
   push:
@@ -7,32 +7,87 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: db
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: 12345
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: backend
-          platforms: linux/amd64,linux/arm64
-          tags: backend-api
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-      - name: Start Docker compose
-        uses: hoverkraft-tech/compose-action@v2.0.1
-        with:
-          compose-file: "./docker-compose.dev.yml"
-      - name: Debug Health Endpoint
+      - name: Build backend image
         run: |
-            echo "=== RESPONSE ==="
-            curl -s "http://localhost:8000/v1/health/"
-            echo
-            echo "=== END RESPONSE ==="
-      - name: Verify Docker compose
-        run: curl -s "http://localhost:8000/v1/health/" | jq -e '.api_status == "health" and .db_status == "health"'
+          cd backend
+          docker build -t backend-api .
+
+      - name: Run backend container with DB connection
+        run: |
+          docker run -d \
+            --name backend-test \
+            --env DATABASE_URL=postgresql://admin:12345@postgres:5432/db \
+            -p 8000:8000 \
+            --add-host=host.docker.internal:host-gateway \
+            backend-api
+
+      - name: Wait for health endpoint
+        run: |
+          for i in {1..30}; do
+            sleep 2
+            if curl -f http://localhost:8000/v1/health/ > /dev/null 2>&1; then
+              echo "✅ Backend is up!"
+              break
+            else
+              echo "⏳ Waiting for /v1/health/... ($i/30)"
+            fi
+          done
+
+          if ! curl -f http://localhost:8000/v1/health/ > /dev/null 2>&1; then
+            echo "❌ Health endpoint did not respond"
+            exit 1
+          fi
+
+      - name: Validate health response
+        run: |
+          response=$(curl -s http://localhost:8000/v1/health/)
+          echo "Response: $response"
+
+          # Убедимся, что jq установлен
+          sudo apt-get update && sudo apt-get install -y jq
+
+          api_status=$(echo "$response" | jq -r '.api_status')
+          db_status=$(echo "$response" | jq -r '.db_status')
+
+          if [ "$api_status" != "health" ]; then
+            echo "❌ API status is not 'health'"
+            exit 1
+          fi
+
+          if [ "$db_status" != "health" ]; then
+            echo "❌ DB status is not 'health'"
+            exit 1
+          fi
+
+          echo "✅ All health checks passed!"
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker stop backend-test || true
+          docker rm backend-test || true
