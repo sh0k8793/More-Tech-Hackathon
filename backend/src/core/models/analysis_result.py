@@ -4,5 +4,4 @@ from pydantic import BaseModel
 
 
 class AnalysisResult(BaseModel):
-    lint_result: list[LintDiagnose] # All lint errors
     recommendations: list[Recommendation] # Only errors with available fixes

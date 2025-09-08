@@ -10,6 +10,7 @@ dependencies = [
     "pydantic>=2.11.7",
     "uvicorn>=0.35.0",
     "pydantic-settings>=2.10.1",
+    "sqlparse~=0.5.3"
 ]
 
 [project.optional-dependencies]
