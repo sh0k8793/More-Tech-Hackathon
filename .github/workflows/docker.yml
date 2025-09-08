@@ -24,3 +24,7 @@ jobs:
           tags: backend-api
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Start Docker-compose
+        run: docker-compose up -d --build && sudo apt install jq
+      - name: Verify Docker-compose
+        run: curl -s "http://localhost:8000/v1/health/" | jq -e '.api_status == "health" and .db_status == "health"'

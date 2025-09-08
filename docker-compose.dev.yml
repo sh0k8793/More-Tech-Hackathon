@@ -33,6 +33,12 @@ services:
             - postgres
         env_file:
             - ./backend/.env
+        healthcheck:
+            test: ["CMD", "sh", "-c", "curl -s http://localhost:8000/v1/health/ | jq -e '.api_status == \"health\" and .db_status == \"health\"' > /dev/null"]
+            interval: 1m30s
+            timeout: 30s
+            retries: 5
+            start_period: 30s
 #    frontend:
 #        build: ./frontend
 #        env_file:

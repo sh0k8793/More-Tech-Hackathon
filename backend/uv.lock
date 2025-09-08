@@ -35,7 +35,6 @@ dependencies = [
     { name = "psycopg-pool" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
-    { name = "python-dotenv" },
     { name = "uvicorn" },
 ]
 
@@ -57,7 +56,6 @@ requires-dist = [
     { name = "psycopg-pool", specifier = ">=1.2" },
     { name = "pydantic", specifier = ">=2.11.7" },
     { name = "pydantic-settings", specifier = ">=2.10.1" },
-    { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.12.12" },
     { name = "ty", marker = "extra == 'dev'", specifier = ">=0.0.1a20" },
     { name = "typos", marker = "extra == 'dev'", specifier = ">=1.36.2" },
