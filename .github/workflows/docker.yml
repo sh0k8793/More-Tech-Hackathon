@@ -29,4 +29,4 @@ jobs:
         with:
           compose-file: "./docker-compose.dev.yml"
       - name: Verify Docker compose
-        run: docker compose exec api curl -s "http://localhost:8000/v1/health/" | jq -e '.api_status == "health" and .db_status == "health"'
+        run: curl -s "http://localhost:8000/v1/health/" | jq -e '.api_status == "health" and .db_status == "health"'
