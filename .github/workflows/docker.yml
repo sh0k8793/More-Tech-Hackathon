@@ -30,3 +30,9 @@ jobs:
           compose-file: "./docker-compose.dev.yml"
       - name: Verify Docker compose
         run: curl -s "http://localhost:8000/v1/health/" | jq -e '.api_status == "health" and .db_status == "health"'
+      - name: Debug Health Endpoint
+        run: |
+            echo "=== RESPONSE ==="
+            curl -s "http://localhost:8000/v1/health/"
+            echo
+            echo "=== END RESPONSE ==="
