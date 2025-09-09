@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field, field_validator
 
 
 class LintRequest(BaseModel):
-    sql_query: str = Field(..., example="select * from users where email = 'a@b.com'")
+    sql_query: str = Field(..., example="SELECT * FROM users WHERE email = 'a@b.com'")
 
     @field_validator("sql_query")
     def sql_not_empty(cls, v):
