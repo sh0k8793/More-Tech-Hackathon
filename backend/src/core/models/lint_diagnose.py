@@ -6,3 +6,4 @@ class LintDiagnose(BaseModel):
     col: int
     severity: str  # = Field(regex="^(HIGH|MEDIUM|LOW)$")
     message: str
+    recommendation: str

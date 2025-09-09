@@ -1,7 +1,7 @@
-from core.models.lint_diagnose import LintDiagnose
-from core.models.recommendation import Recommendation
+from .lint_diagnose import LintDiagnose
 from pydantic import BaseModel
 
 
 class AnalysisResult(BaseModel):
-    recommendations: list[Recommendation] # Only errors with available fixes
+    lint_diagnoses: list[LintDiagnose] # Only errors with available fixes
+    summary_recommendation: str # IDEA: generate summary with AI
