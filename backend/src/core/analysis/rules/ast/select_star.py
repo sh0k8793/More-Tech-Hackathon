@@ -2,7 +2,7 @@ from typing import Any, Dict, List
 
 import sqlparse
 
-from ....models.lint_diagnose import LintDiagnose
+from core.models.lint_diagnose import LintDiagnose
 
 
 def rule_select_star(query: str, plan: Dict[str, Any], context: Dict[str, Any]) -> List[LintDiagnose]:

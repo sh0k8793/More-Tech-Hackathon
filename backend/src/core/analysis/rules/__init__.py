@@ -3,7 +3,7 @@ from importlib import import_module
 from pathlib import Path
 from typing import Any, Callable, Dict, List
 
-from ...models.lint_diagnose import LintDiagnose
+from core.models.lint_diagnose import LintDiagnose
 
 RuleFunction = Callable[[str, Dict[str, Any], Dict[str, Any]], List[LintDiagnose]]
 

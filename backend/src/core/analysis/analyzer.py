@@ -2,10 +2,10 @@ from typing import Any, Dict, List
 
 from psycopg import AsyncConnection
 
-from ..models.analysis_result import AnalysisResult
-from ..models.lint_request import LintRequest, LintRequests
-from .context import get_database_context
-from .rules.analyze_with_rules import analyze_with_rules
+from core.models.analysis_result import AnalysisResult
+from core.models.lint_request import LintRequest, LintRequests
+from context import get_database_context
+from rules.analyze_with_rules import analyze_with_rules
 
 
 class SQLAnalyzer():
