@@ -1,5 +1,6 @@
 import re
-from typing import Dict, List, Any, Set
+from typing import Any, Dict, List, Set
+
 from ....models.lint_diagnose import LintDiagnose
 
 

@@ -1,7 +1,7 @@
 # backend/src/core/analysis/context.py
-from typing import Dict, Any
-from psycopg import AsyncConnection
+from typing import Any, Dict
 
+from psycopg import AsyncConnection
 
 # TODO: добавить получение базовой информации о бд
 

@@ -1,7 +1,8 @@
 # rules/__init__.py
 from importlib import import_module
 from pathlib import Path
-from typing import List, Dict, Any, Callable
+from typing import Any, Callable, Dict, List
+
 from ...models.lint_diagnose import LintDiagnose
 
 RuleFunction = Callable[[str, Dict[str, Any], Dict[str, Any]], List[LintDiagnose]]

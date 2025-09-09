@@ -1,8 +1,7 @@
+from typing import Any, Dict, List, Optional
+
 from ...models.lint_diagnose import LintDiagnose
 from . import all_rules
-
-
-from typing import Any, Dict, List, Optional
 
 
 def analyze_with_rules(

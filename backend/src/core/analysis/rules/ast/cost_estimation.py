@@ -1,4 +1,5 @@
-from typing import Dict, List, Any, Optional
+from typing import Any, Dict, List, Optional
+
 from ....models.lint_diagnose import LintDiagnose
 
 
