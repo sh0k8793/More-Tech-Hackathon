@@ -1,0 +1,26 @@
+services:
+    postgres:
+        image: postgres
+        environment:
+            POSTGRES_DB: db
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: 12345
+            PGDATA: "/var/lib/postgresql/data/pgdata"
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        restart: unless-stopped
+    api:
+        build: ./backend
+        ports:
+            - "8000:8000"
+        command:  uv run uvicorn main:app --reload --host 0.0.0.0 --port 8000
+        restart: unless-stopped
+        depends_on:
+            - postgres
+        env_file:
+            - ./backend/.env
+volumes:
+    pgadmin:
+    postgres:
