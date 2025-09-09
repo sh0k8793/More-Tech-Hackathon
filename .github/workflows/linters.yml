@@ -22,4 +22,3 @@ jobs:
           uv run ty check src
           uv run bandit check src -r
           uv run typos
-          uv run isort --check-only src

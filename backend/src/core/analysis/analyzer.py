@@ -11,7 +11,7 @@ from rules.analyze_with_rules import analyze_with_rules
 class SQLAnalyzer():
     async def _get_explain_plan(self, conn: AsyncConnection, query: str) -> Dict[str, Any]:
         async with conn.cursor() as cur:
-            await cur.execute(f"EXPLAIN (FORMAT JSON) {query}") # type: ignore
+            await cur.execute(f"EXPLAIN (FORMAT JSON) {query}")
             result = await cur.fetchone()
 
             return result[0] # type: ignore

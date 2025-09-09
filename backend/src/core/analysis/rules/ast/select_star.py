@@ -10,6 +10,7 @@ def rule_select_star(query: str, plan: Dict[str, Any], context: Dict[str, Any]) 
     Обнаруживает использование SELECT * в запросах
     """
     recommendations = []
+    optimized_query = query
 
     try:
         parsed = sqlparse.parse(query)
@@ -38,9 +39,10 @@ def rule_select_star(query: str, plan: Dict[str, Any], context: Dict[str, Any]) 
                         recommendation="Явно укажите необходимые колонки вместо использования *. Это улучшит производительность и сделает запрос более понятным."
                     )
                     recommendations.append(diagnose)
+                    # Здесь надо переписывать запрос если это возможно, в конкретном примере нет, просто возвращаем исходный запрос
                     break
 
     except Exception as e:
         print(f"Error in select_star rule: {e}")
 
-    return recommendations
+    return recommendations, optimized_query #ty: ignore

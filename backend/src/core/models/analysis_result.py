@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from lint_diagnose import LintDiagnose
+from .lint_diagnose import LintDiagnose
 
 
 class AnalysisResult(BaseModel):
