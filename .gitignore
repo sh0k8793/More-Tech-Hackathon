@@ -1,2 +1,4 @@
 backend/.env
 backend/uv.lock
+*.py[codz]
+*$py.class

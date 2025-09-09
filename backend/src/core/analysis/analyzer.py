@@ -4,8 +4,8 @@ from psycopg import AsyncConnection
 
 from core.models.analysis_result import AnalysisResult
 from core.models.lint_request import LintRequest, LintRequests
-from context import get_database_context
-from rules.analyze_with_rules import analyze_with_rules
+from core.analysis.context import get_database_context
+from core.analysis.rules.analyze_with_rules import analyze_with_rules
 
 
 class SQLAnalyzer():
@@ -20,7 +20,7 @@ class SQLAnalyzer():
         plan = await self._get_explain_plan(conn, lint_request.sql_query)
         context =  await get_database_context(conn)
 
-        lint_diagnoses = analyze_with_rules(
+        recommendation, lint_diagnoses = analyze_with_rules(
             lint_request.sql_query,
             plan,
             context
@@ -28,7 +28,7 @@ class SQLAnalyzer():
 
         return AnalysisResult(
             lint_diagnoses=lint_diagnoses,
-            summary_recommendation="None"
+            summary_recommendation=recommendation
         )
 
     def analyze_many(lint_requests: LintRequests) -> List[AnalysisResult]: # type: ignore
