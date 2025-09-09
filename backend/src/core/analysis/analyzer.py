@@ -31,7 +31,14 @@ class SQLAnalyzer():
             summary_recommendation=recommendation
         )
 
-    def analyze_many(lint_requests: LintRequests) -> List[AnalysisResult]: # type: ignore
-        pass
+    async def analyze_many(self, lint_requests: LintRequests, conn: AsyncConnection) -> List[AnalysisResult]: # type: ignore
+        result = []
+
+        for sql_query in lint_requests.sql_query:
+            lint_request = LintRequest(sql_query=sql_query)
+
+            result.extend(await self.analyze_one(lint_request, conn))
+
+        return result
 
 analyzer = SQLAnalyzer()
