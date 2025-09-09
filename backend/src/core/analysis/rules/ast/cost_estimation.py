@@ -1,4 +1,3 @@
-import json
 from typing import Dict, List, Any, Optional
 from ....models.lint_diagnose import LintDiagnose
 

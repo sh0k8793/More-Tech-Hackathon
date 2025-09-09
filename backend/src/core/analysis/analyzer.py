@@ -1,4 +1,3 @@
-from ..models.lint_diagnose import LintDiagnose
 from ..models.analysis_result import AnalysisResult
 from ..models.lint_request import LintRequest, LintRequests
 

@@ -1,5 +1,5 @@
 import sqlparse
-from typing import Dict, List, Any, Optional, Set
+from typing import Dict, List, Any, Set
 from ....models.lint_diagnose import LintDiagnose
 
 

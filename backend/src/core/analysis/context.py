@@ -1,6 +1,5 @@
 # backend/src/core/analysis/context.py
-from typing import Dict, Any, List
-import psycopg
+from typing import Dict, Any
 from psycopg import AsyncConnection
 
 

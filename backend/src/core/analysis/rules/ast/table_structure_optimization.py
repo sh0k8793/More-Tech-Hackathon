@@ -1,5 +1,4 @@
-import json
-from typing import Dict, List, Any, Optional, Set
+from typing import Dict, List, Any
 from ....models.lint_diagnose import LintDiagnose
 
 
@@ -164,7 +163,7 @@ def analyze_foreign_keys(table_stats: Dict[str, Any], context: Dict[str, Any]) -
     try:
         for table_name, stats in table_stats.items():
             table_size = stats.get('table_size', '0')
-            row_count = stats.get('row_count', 0)
+            stats.get('row_count', 0)
 
             size_in_mb = parse_memory_value(table_size)
 
@@ -244,7 +243,7 @@ def analyze_table_indexes(table_stats: Dict[str, Any], context: Dict[str, Any]) 
 
         for table_name, stats in table_stats.items():
             table_size = stats.get('table_size', '0')
-            row_count = stats.get('row_count', 0)
+            stats.get('row_count', 0)
 
             size_in_mb = parse_memory_value(table_size)
 
@@ -288,7 +287,7 @@ def analyze_clustering(table_stats: Dict[str, Any], context: Dict[str, Any]) -> 
     try:
         for table_name, stats in table_stats.items():
             table_size = stats.get('table_size', '0')
-            row_count = stats.get('row_count', 0)
+            stats.get('row_count', 0)
 
             size_in_mb = parse_memory_value(table_size)
 
@@ -366,7 +365,7 @@ def analyze_toast(table_stats: Dict[str, Any], context: Dict[str, Any]) -> List[
     try:
         for table_name, stats in table_stats.items():
             table_size = stats.get('table_size', '0')
-            row_count = stats.get('row_count', 0)
+            stats.get('row_count', 0)
 
             size_in_mb = parse_memory_value(table_size)
 
@@ -414,5 +413,5 @@ def parse_memory_value(value_str: str) -> int:
         else:
             # Предполагаем, что это уже в байтах
             return int(int(float(value_str)) / (1024 * 1024))
-    except:
+    except Exception:
         return 0

@@ -1,5 +1,4 @@
-import json
-from typing import Dict, List, Any, Optional, Set
+from typing import Dict, List, Any
 from ....models.lint_diagnose import LintDiagnose
 
 
@@ -62,7 +61,7 @@ def analyze_table_defragmentation(table_stats: Dict[str, Any], io_stats: Dict[st
             dead_rows = stats.get('dead_rows', 0)
             mods_since_analyze = stats.get('mods_since_analyze', 0)
             last_analyze = stats.get('last_analyze', None)
-            last_autoanalyze = stats.get('last_autoanalyze', None)
+            stats.get('last_autoanalyze', None)
 
             size_in_mb = parse_memory_value(table_size)
 
@@ -136,7 +135,7 @@ def analyze_index_defragmentation(index_stats: List[Dict[str, Any]], table_stats
 
     try:
         for idx in index_stats:
-            table_name = idx.get('table', '')
+            idx.get('table', '')
             index_name = idx.get('index', '')
             index_size = idx.get('size', '0')
             scans = idx.get('scans', 0)
@@ -201,10 +200,10 @@ def analyze_table_analyze(table_stats: Dict[str, Any], context: Dict[str, Any]) 
         for table_name, stats in table_stats.items():
             table_size = stats.get('table_size', '0')
             row_count = stats.get('row_count', 0)
-            dead_rows = stats.get('dead_rows', 0)
+            stats.get('dead_rows', 0)
             mods_since_analyze = stats.get('mods_since_analyze', 0)
             last_analyze = stats.get('last_analyze', None)
-            last_autoanalyze = stats.get('last_autoanalyze', None)
+            stats.get('last_autoanalyze', None)
 
             size_in_mb = parse_memory_value(table_size)
 
@@ -255,8 +254,8 @@ def analyze_table_vacuum(table_stats: Dict[str, Any], context: Dict[str, Any]) -
             table_size = stats.get('table_size', '0')
             row_count = stats.get('row_count', 0)
             dead_rows = stats.get('dead_rows', 0)
-            mods_since_analyze = stats.get('mods_since_analyze', 0)
-            last_analyze = stats.get('last_analyze', None)
+            stats.get('mods_since_analyze', 0)
+            stats.get('last_analyze', None)
             last_autoanalyze = stats.get('last_autoanalyze', None)
 
             size_in_mb = parse_memory_value(table_size)
@@ -305,7 +304,7 @@ def analyze_reindexing(index_stats: List[Dict[str, Any]], table_stats: Dict[str,
 
     try:
         for idx in index_stats:
-            table_name = idx.get('table', '')
+            idx.get('table', '')
             index_name = idx.get('index', '')
             index_size = idx.get('size', '0')
             scans = idx.get('scans', 0)
@@ -433,7 +432,7 @@ def is_old(timestamp_str: str, days: int = 30) -> bool:
         # Проверка, больше ли разница указанного количества дней
         return delta > timedelta(days=days)
 
-    except:
+    except Exception:
         return True  # Если не удалось распарсить, считаем старым
 
 
@@ -455,5 +454,5 @@ def parse_memory_value(value_str: str) -> int:
         else:
             # Предполагаем, что это уже в байтах
             return int(int(float(value_str)) / (1024 * 1024))
-    except:
+    except Exception:
         return 0

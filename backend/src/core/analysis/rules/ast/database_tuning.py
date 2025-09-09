@@ -1,5 +1,4 @@
-import json
-from typing import Dict, List, Any, Optional, Set
+from typing import Dict, List, Any
 from ....models.lint_diagnose import LintDiagnose
 
 
@@ -513,5 +512,5 @@ def parse_memory_value(value_str: str) -> int:
         else:
             # Предполагаем, что это уже в байтах
             return int(int(float(value_str)) / (1024 * 1024))
-    except:
+    except Exception:
         return 0
