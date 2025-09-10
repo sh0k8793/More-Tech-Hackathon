@@ -1,0 +1,9 @@
+You're given a task to create a lint summary for SQL code analysis.
+Errors found:
+{% for error in errors %}
+- Line {{ error.line }}, Column {{ error.col }} ({{ error.severity }}): {{ error.message }}
+  Recommendation: {{ error.recommendation or "No specific recommendation provided" }}
+{% endfor %}
+
+Please provide a brief explanation of what the user needs to do to fix these issues, organized by severity level.
+Focus on the most critical issues that should be addressed first.
